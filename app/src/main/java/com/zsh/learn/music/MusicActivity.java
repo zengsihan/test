@@ -65,6 +65,7 @@ public class MusicActivity extends AppCompatActivity {
 
 
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+
         request.setDestinationInExternalPublicDir("/MusicDownload/","1.mp3");
         DownloadManager downloadManager = (DownloadManager) getApplicationContext().getSystemService(Context.DOWNLOAD_SERVICE);
         downloadManager.enqueue(request);

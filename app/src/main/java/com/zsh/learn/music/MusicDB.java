@@ -1,5 +1,6 @@
 package com.zsh.learn.music;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,6 +19,38 @@ public class MusicDB {
         this.context=context;
         MusicDBHelper musicDBHelper=new MusicDBHelper(context);
         db= musicDBHelper.getReadableDatabase();
+    }
+
+    /**
+     * 添加单首音乐信息
+     * @param
+     */
+    public void addSingleMusicInfo(MusicInfo mi){
+        ContentValues cv=new ContentValues();
+        cv.put("name",mi.getName());
+        cv.put("author",mi.getAuthor());
+        cv.put("url",mi.getUrl());
+        db.insert("music",null,cv);
+    }
+
+    /**
+     * 查询一个
+     * @param
+     * @return
+     */
+    public MusicInfo findSingleMusicInfo(String url1){
+        Cursor cursor=null;
+        MusicInfo hi=null;
+        cursor=db.rawQuery("select * from music where url=?",new String[]{url1});
+        if(cursor!=null){
+            if (cursor.moveToNext()){
+                String name=cursor.getString(cursor.getColumnIndex("name"));
+                String author=cursor.getString(cursor.getColumnIndex("author"));
+                String url=cursor.getString(cursor.getColumnIndex("url"));
+                hi=new MusicInfo(name,author,url);
+            }
+        }
+        return hi;
     }
 
     /**

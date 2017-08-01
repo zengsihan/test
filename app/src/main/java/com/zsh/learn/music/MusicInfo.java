@@ -9,10 +9,10 @@ public class MusicInfo {
     private String author;
     private String url;
 
-    public MusicInfo(String name, String url, String author) {
+    public MusicInfo(String name, String author, String url) {
         this.name = name;
-        this.url = url;
         this.author = author;
+        this.url = url;
     }
 
     @Override
