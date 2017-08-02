@@ -118,7 +118,7 @@ public class ExcelToDBActivity extends AppCompatActivity {
                 String author = sheet.getCell(2,i).getContents();
                 String url = sheet.getCell(4,i).getContents();
                 if("".equals(name) || "".equals(author) || "".equals(url) || "null".equals(url)){
-                    num--;
+                      num--;
                     continue;
                 }
                 MusicInfo musicInfo = new MusicInfo(name,author,url);
