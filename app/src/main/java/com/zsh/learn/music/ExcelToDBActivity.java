@@ -1,9 +1,6 @@
 package com.zsh.learn.music;
 
-import android.app.DownloadManager;
-import android.content.Context;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -43,63 +40,12 @@ public class ExcelToDBActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //  tv.setText(str); // ok
-                //  PlayMusic(); // ok
-                // DownlaodMusic();
                 ReadExcel();
             }
         });
 
     }
 
-    private void DownlaodMusic() {
-        String url = null;
-        // url="http://m2.music.126.net/NYq7If0Alf1wH0b81vrEpw==/6668538022514769.mp3";
-        Workbook workbook = null;
-        mediaPlayer = new MediaPlayer();
-        try {
-            workbook =Workbook.getWorkbook(getAssets().open("music.xls"));
-            Sheet sheet = workbook.getSheet(0);
-            url = sheet.getCell(4,2).getContents().trim();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (BiffException e) {
-            e.printStackTrace();
-        }
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-        request.setDestinationInExternalPublicDir("/MusicDownload/","1.mp3");
-        DownloadManager downloadManager = (DownloadManager) getApplicationContext().getSystemService(Context.DOWNLOAD_SERVICE);
-        downloadManager.enqueue(request);
-        Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
-    }
-
-    private void PlayMusic() {
-        Workbook workbook = null;
-        mediaPlayer = new MediaPlayer();
-        try {
-            workbook = Workbook.getWorkbook(getAssets().open("music.xls"));
-            Sheet sheet = workbook.getSheet(0);
-            String url = sheet.getCell(4,2).getContents().trim();
-            Toast.makeText(this, url, Toast.LENGTH_SHORT).show();
-            mediaPlayer.setDataSource(url);
-
-            //  mediaPlayer.setDataSource("http://m2.music.126.net/NYq7If0Alf1wH0b81vrEpw==/6668538022514769.mp3");
-            mediaPlayer.prepareAsync();
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    mediaPlayer.start();
-                    Toast.makeText(ExcelToDBActivity.this, "play", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            //  Toast.makeText(MusicActivity.this, "播放失败", Toast.LENGTH_SHORT).show();
-        }
-    }
 
     private void ReadExcel() {
         try {
